@@ -1,0 +1,75 @@
+/* custom.css */
+
+/* Style for the container holding the boxes */
+.d-flex {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  /* Style for the individual box */
+  .w-40 {
+    width: 7vw; /* Adjust the width as per your preference */
+  }
+  
+  .h-24 {
+    height: 5vh; /* Adjust the height as per your preference */
+  }
+  
+  .bg-primary {
+    background-color: #007bff;
+  }
+  
+  .p-2 {
+    padding: 0.5rem;
+  }
+  
+  .m-2 {
+    margin: 0.5rem;
+  }
+  
+  .rounded-lg {
+    border-radius: 0.5rem;
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  
+  /* Style for the tooltip */
+  .position-absolute {
+    position: absolute;
+  }
+  
+  .bg-white {
+    background-color: #fff;
+  }
+  
+  .opacity-90 {
+    opacity: 0.9;
+  }
+  
+  .tooltip {
+    display: none;
+    z-index: 1;
+  }
+  
+  /* Show the tooltip on hover */
+  .box:hover .tooltip {
+    display: block;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-width: 30vw;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* Styling the tooltip content */
+  .tooltip-content {
+    padding: 1rem;
+  }
+  
+  .tooltip-content .font-weight-bold {
+    color: #007bff;
+  }
+  

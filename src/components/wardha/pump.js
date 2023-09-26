@@ -46,7 +46,7 @@ const Pump = () => {
               </div>
               <div className="pump-content">
                 <h3>{item.Device_Name}</h3>
-                <h4>{item[0]}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Eff - {item.efficiency}%</b></h4>
+                <p>{item[0]}&nbsp;&nbsp; Eff <b>{item.pump_efficiency_csv}%</b></p>
                 <hr className="line" />
                 <div className="bottom-content">
                   <div className="kwh-data">
@@ -61,12 +61,12 @@ const Pump = () => {
                 </div>
                 <div className="bottom-content2">
                   <div className="kwh-data">
-                    <p className="label">F:<b> {item.flow} </b></p>
+                    <p className="label">F:<b> {item.flow_rate_csv} </b></p>
                     {/* <b><p className="value"></p></b> */}
                   </div>
                   {/* <div className="vertical-line" /> */}
                   <div className="bottom-right">
-                    <p className="label">P: <b>{item.pressure}</b></p>
+                    <p className="label">P: <b>{item.pressure_csv}</b></p>
                     {/* <b><p className="value"></p></b> */}
                   </div>
                 </div>

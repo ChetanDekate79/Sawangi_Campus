@@ -31,13 +31,14 @@
 
 .content {
   border-radius: 3vh;
-  /* background-color: #f3f6f7; */
-  background-color:#eef7eb ;
-
+  background-color: #eef7eb;
   margin-top: 2vh;
-  width: 85vw;
+  margin-right: 2vh;
+  width: calc(100vw - 5vw); /* Adjust the percentage as needed */
+
   height: 96vh;
 }
+
 
 .logo {
   max-width: 10px;
@@ -49,7 +50,7 @@
   display: flex;
   align-items: center;
   padding: 8px;
-  border-radius: 2vh;
+  border-radius: 5vh;
   cursor: pointer;
 }
 
@@ -62,7 +63,7 @@
   height: 80vh;
   background-color: transparent;
   padding: 1vw;
-  border-radius: 3vw;
+  border-radius: 5vw;
 }
 
 .icon-container.active {
@@ -124,5 +125,5 @@
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
   width: 10vw;
   border-radius: 2vh;
-  margin-bottom: 6vh;
+  /* margin-bottom: 3vh; */
 }

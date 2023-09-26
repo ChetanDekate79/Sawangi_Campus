@@ -44,6 +44,27 @@ const Report_wardha = () => {
     fetchInitialData();
   }, []);
 
+  const downloadPdf = async () => {
+    try {
+      const iframe = iframeRef.current;
+  
+      if (iframe) {
+        const contentDocument = iframe.contentDocument || iframe.contentWindow.document;
+        const canvas = await html2canvas(contentDocument.body);
+  
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+  
+        pdf.addImage(imgData, 'PNG', 10, 10, pdfWidth - 20, pdfHeight - 20);
+        pdf.save('Hourly_Report.pdf');
+      }
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    }
+  };
+
   useEffect(() => {
     const fetchMetersByHost = async () => {
       try {
@@ -123,19 +144,6 @@ const Report_wardha = () => {
   const firstSecondDiffValue = firstRow ? firstRow.first_wh_R : null;
   const lastLastDiffValue = lastRow ? lastRow.last_wh_R : null;
   
-
-
-  // const handleClick3 = () => {
-  //   const previousURL = window.location.href; // Get the current URL
-
-  //   window.location.href = 'https://newrcplasto.hetadatain.com/api/jnmc_graph?host=AV11&device_id=49&date=2023-05-22'; // Open the new link
-
-  //   setTimeout(() => {
-  //     window.location.href = 'http://localhost:3000/'; // Go back to the previous link
-  //   }, 1000); // Adjust the delay time as needed
-  // };
-
-
 
 
   useEffect(() => {
@@ -231,14 +239,11 @@ const Report_wardha = () => {
     chart.legend.useDefaultMarker = true;
     chart.legend.position = "bottom";
     
-    
-
     // Add title
     const title = chart.titles.create();
     title.text = `Hourly Graph`;
     title.fontSize = 20;
     title.marginBottom = 20;
-    
 
     // Add chart cursor
     chart.cursor = new am4charts.XYCursor();
@@ -342,8 +347,25 @@ const Report_wardha = () => {
           }}
         />
       </div>
+      <div className="hostel_button" onClick={downloadPdf} data-tooltip="Download">
+              <div className="hostel_button-wrapper">
+                <div className="text"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"></path></svg></div>
+                
+                <span className="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"></path></svg>
+                </span>
+              </div>
+            </div>
       </div>
-      <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center", // Center the chart horizontally
+          marginTop: "2vh",
+          marginLeft: "2vw",
+          marginRight: "2vw",
+        }}
+      >
       {isLoading ? (
         <div className="loading-container">
           <div className="spinner"></div>
@@ -352,7 +374,10 @@ const Report_wardha = () => {
         <>
           {reportUrl && (
         <>
-          <iframe src={reportUrl} style={{ marginLeft: "1vw",width: '83vw', height: "75vh", backgroundColor: "#ffffff", borderRadius: "10px" }} title="Report" />
+          <iframe ref={iframeRef} src={reportUrl} style={{ width: "100%", // Set the chart width to 100% of its container
+              height: "75vh",
+              backgroundColor: "#ffffff",
+              borderRadius: "10px", }} title="Report" />
 
         </>
       )}

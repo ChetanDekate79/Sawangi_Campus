@@ -1,38 +1,54 @@
-.box-container {
-  border-radius:10px;
-  background-color: #f5f5f5;
+/* Updated class names */
+.new-consumption-box {
+  border: 2px solid #e1e1e1;
+  border-radius: 10px;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #f7f7f7;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   text-align: center;
-  height: 15vh;
+  align-items: center;
+  justify-content: center; 
   border: 4px double #333;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  margin-top: 27vh;
+  width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 2vh;
 }
 
-.box-title-solar {
+
+.new-consumption-main {
+  display: flex;
+  width: 70vw;
+  padding: 5vw;
+}
+
+.new-box-title {
   font-family: "Comic Sans MS", cursive;
   font-size: 1.2rem; /* Adjust the font size as desired */
   color: #333;
   margin-bottom: 10px;
 }
 
-.button {
+.new-button {
+  display: inline-block;
   padding: 10px 20px;
-  border: none;
-  border-radius: 50px;
-  background-color: #007bff;
-  color: #fff;
-  font-size: 1rem; /* Adjust the font size as desired */
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  background-color: #4CAF50;
+  color: #ffffff;
+  border-radius: 4px;
   cursor: pointer;
-  align-self: center;
 }
 
-.button:hover {
-  background-color: #0056b3;
+.new-button:hover {
+  background-color:  #3a893c;
 }
-.button.comic-sans {
+
+.new-button-comic {
   font-family: "Comic Sans MS", cursive;
   /* Add any other styles for the button here */
 }

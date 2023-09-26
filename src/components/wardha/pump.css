@@ -2,6 +2,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  overflow-y: scroll;
+  max-height: 80vh;
 }
 .loading {
   display: flex;
@@ -63,6 +65,7 @@ height: 3vh;
 
 /* .pump-content {
   text-align: center;
+  height: 15vh;
 } */
 
 .pump-content h3 {
@@ -74,6 +77,12 @@ height: 3vh;
 
 .pump-content h4 {
   font-size: 0.9vw;
+  font-family: Comic Sans MS;
+  color: rgb(62, 62, 62);
+}
+
+.pump-content p {
+  /* font-size: 0.9vw; */
   font-family: Comic Sans MS;
   color: rgb(62, 62, 62);
 }
@@ -108,7 +117,7 @@ height: 3vh;
 
 .vertical-line {
   width: 0.1vw;
-  height: 4vh;
+  height: 6vh;
   background-color: #ffffff;
   margin: 0 8px;
 }
@@ -162,7 +171,6 @@ height: 3vh;
     height: 10px;
   }
 }
-
 
 /* Add the following CSS to display item-details side by side */
 .item-details {

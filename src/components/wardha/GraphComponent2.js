@@ -250,12 +250,11 @@ const LineChart_csv = () => {
 
   return (
     <div>
-      <div style={{ display: "flex", marginBottom: "10px", marginTop: "2vh" }}>
+      <div style={{ display: "flex", marginBottom: "10px", marginTop: "2vh",marginLeft: "2vw"  }}>
         <div style={{ alignItems: "center", marginRight: "2px", backgroundColor: "#e4da85", padding: "2px", borderRadius: "10px" }}>
           <label htmlFor="columnSelectY" style={{ fontWeight: "bold", display: "block", fontFamily: "Comic Sans MS", color: "#ffffff" }}>
             Parameters:
           </label>
-
           <select
             id="columnSelectY"
             value={selectedColumnsY}
@@ -275,18 +274,16 @@ const LineChart_csv = () => {
             <option value={['4', '5', '6', '7']}>W_Total, R-phase, Y-phase, B-phase</option>
             <option value={['8', '9', '10', '11']}>VAR_Total, R-phase, Y-phase, B-phase</option>
             <option value={['12', '13', '14', '15']}>PF_Ave, R-phase, Y-phase, B-phase</option>
-            <option value={['16', '17', '18', '19']}>VA_tota l, R-phase, Y-phase, B-phase</option>
-            <option value={['20', '21', '22', '23']}>VLL_average, R-phase, Y-phase, B-phase</option>
-            <option value={['24', '25', '26', '27']}>VLN_average, R-phase, Y-phase, B-phase</option>
+            <option value={['16', '17', '18', '19']}>VA_total, R-phase, Y-phase, B-phase</option>
+            <option value={['20', '21', '22', '23']}>VLL_average, Vry-phase, Vyb-phase, Vbr-phase</option>
+            <option value={['24', '25', '26', '27']}>VLN_average, Vr-phase, Vy-phase, Vb-phase</option>
             <option value={['28', '29', '30', '31']}>Current_Average, R-phase, Y-phase, B-phase</option>
-            <option value={['46', '47', '48']}>Voltage-R-Harm, Voltage-Y-Harm, Voltage-B-Harm</option>
-            <option value={['49', '50', '51']}>Current-R-Harm, Current-Y-Harm, Current-B-Harm</option>
             <option value="32">Frequency</option>
-            <option value="33">kWh_Received</option>
+            <option value="33">Wh_Received</option>
             <option value="34">VAh_Received</option>
             <option value="35">VARh_Ind_Received</option>
             <option value="36">VARh_Cap_Received</option>
-            <option value="37">kWh_Delivered</option>
+            <option value="37">Wh_Delivered</option>
             <option value="38">VAh_Delivered</option>
             <option value="39">VARh_Ind_Delivered</option>
             <option value="40">VARh_Cap_Delivered</option>
@@ -295,23 +292,14 @@ const LineChart_csv = () => {
             <option value="43">PF average delivered</option>
             <option value="44">Amps average delivered</option>
             <option value="45">Neutral_current</option>
-            <option value={['52', '53', '54']}>kWh received Phase-R, Phase-Y, Phase-B</option>
-            <option value={['55', '56', '57']}>kVAh received Phase-R, Phase-Y, Phase-B</option>
-            <option value={['58', '59', '60']}>kVArh inductive received Phase-R, Phase-Y, Phase-B</option>
-            <option value={['61', '62', '63']}>kVArh capacitive received Phase-R, Phase-Y, Phase-B</option>
-            <option value={['64', '65', '66']}>PF average received Phase-R, Phase-Y, Phase-B</option>
-            <option value={['67', '68', '69']}>A average received Phase-R, Phase-Y, Phase-B</option>
-            <option value={['70', '71', '72']}>kWh delivered Phase-R, Phase-Y, Phase-B</option>
-            <option value={['73', '74', '75']}>kVAh delivered Phase-R, Phase-Y, Phase-B</option>
-            <option value={['76', '77', '78']}>kVArh inductive delivered Phase-R, Phase-Y, Phase-B</option>
-            <option value={['79', '80', '81']}>kVArh capacitive delivered Phase-R, Phase-Y, Phase-B</option>
+            <option value={['46', '47', '48']}>Voltage-R-Harm, Voltage-Y-Harm, Voltage-B-Harm</option>
+            <option value={['49', '50', '51', '52']}>Current-R-Harm, Current-Y-Harm, Current-B-Harm, Level</option>
           </select>
         </div>
         <div style={{ alignItems: "center", marginRight: "2px", backgroundColor: "rgb(156 152 255)", padding: "2px", borderRadius: "10px" }}>
           <label htmlFor="select_host" style={{ fontWeight: "bold", display: "block", fontFamily: "Comic Sans MS", color: "#ffffff" }}>
             Host:
           </label>
-
           <select
             id="select_host"
             value={selectedHost}
@@ -397,14 +385,25 @@ const LineChart_csv = () => {
         </div>
       </div>
 
-      <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center", // Center the chart horizontally
+          marginTop: "2vh",
+          marginLeft: "2vw",
+          marginRight: "2vw",
+        }}
+      >
         {isLoadingData ? (
           <div className="loading">Loading...</div>
         ) : (
           data.length === 0 ? (
           <div className="loading">No data available</div>
         ) : (
-          <div id="chartdiv_g" style={{ marginLeft: "1vw", width: '83vw', height: "72vh", backgroundColor: "#ffffff", borderRadius: "10px" }} />
+          <div id="chartdiv_g" style={{ width: "100%", // Set the chart width to 100% of its container
+          height: "75vh",
+          backgroundColor: "#ffffff",
+          borderRadius: "10px", }} />
         ))}
       </div>
     </div>

@@ -13,8 +13,10 @@ import CsvBillerComponent from './components/wardha/csvbiller';
 import MyTableauDashboard from './components/wardha/TableauViz';
 import Login2 from './components/wardha/Login2';
 import LoginForm from './components/wardha/loginform';
-
-
+import Meterstatus from './components/wardha/meterstatus';
+import EventTable from './components/wardha/wardhastatus';
+import DataDisplay from './components/wardha/wardhastatus';
+import Sidebar_wardha_icons from './components/wardha/side_bar_icon'
 function App() { 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -33,14 +35,11 @@ function App() {
         </div>
       ) : (
         <>
-          {/* <Top_Bar/>
-          <Sidebar_wardha/> */}
-          {/* <TopBar/> */}
-          <Sidebar_wardha/>
-          {/* <MyTableauDashboard/> */}
-          {/* <Pump/> */}
-          {/* <Login2/> */}
-          {/* <CsvBillerComponent/> */}
+          
+            {/* <Sidebar_wardha_icons/> */}
+
+          <Login2/>
+         
         </>
       )}
     </div>

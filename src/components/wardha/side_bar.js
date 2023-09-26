@@ -10,9 +10,15 @@ import Total_Consumption from "./Total_consumption";
 import Home from "./home";
 import Pump from "./pump";
 import Pump_report from "./pump_report";
-const Sidebar_wardha = () => {
+import DataDisplay from './wardhastatus'
+import Report_pump from "./report_pump";
+
+const Sidebar_wardha = (props) => {
+  const { userType } = props;
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("home");
+  // const [activeTab, setActiveTab] = useState("home");
+  const [activeTab, setActiveTab] = useState("graph");
+
 
   const handleLogout = () => {
     // Perform any logout logic if necessary
@@ -54,8 +60,12 @@ const Sidebar_wardha = () => {
         return <Total_Consumption />;
       case "pump":
         return <Pump/>;
+        case "pump_hourly_report":
+          return <Report_pump/>;
       case "pump_report":
         return <Pump_report/>;
+        case "meter_status":
+        return <DataDisplay/>;
       default:
         return null;
     }
@@ -68,14 +78,14 @@ const Sidebar_wardha = () => {
           <img src="log.png" alt="Left Image" className="logo-left"/>
         </div>
     
-        <div
+        {/* <div
           className={`icon-container ${activeTab === "home" ? "active" : ""}`}
           onClick={() => setActiveTab("home")}
           title="Home"
         >
           <FaHome size={24} />
           <span className="icon-name">Home</span>
-        </div>
+        </div> */}
         <div
           className={`icon-container ${activeTab === "graph" ? "active" : ""}`}
           onClick={() => setActiveTab("graph")}
@@ -126,6 +136,14 @@ const Sidebar_wardha = () => {
           <span className="icon-name">Pump Status</span>
         </div>
         <div
+          className={`icon-container ${activeTab === "pump_hourly_report" ? "active" : ""}`}
+          onClick={() => setActiveTab("pump_hourly_report")}
+          title="Pump Report"
+        >
+          <IoMdDocument size={24} />
+          <span className="icon-name">Pump Hourly Report</span>
+        </div>
+        <div
           className={`icon-container ${activeTab === "pump_report" ? "active" : ""}`}
           onClick={() => setActiveTab("pump_report")}
           title="Pump Report"
@@ -133,6 +151,17 @@ const Sidebar_wardha = () => {
           <IoMdDocument size={24} />
           <span className="icon-name">Pump Report</span>
         </div>
+        <div
+          className={`icon-container ${activeTab === "meter_status" ? "active" : ""}`}
+          onClick={() => setActiveTab("meter_status")}
+          title="Meter Status"
+        >
+          <IoMdDocument size={24} />
+          <span className="icon-name">Meter Status</span>
+        </div>
+        {/* <div className="user-type">
+        User Type: {userType}
+      </div> */}
 
 
         <div className="log">

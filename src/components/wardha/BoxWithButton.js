@@ -3,7 +3,7 @@ import './BoxWithButton.css';
 
 const BoxWithButton = () => {
   const handleClick = () => {
-    window.location.href = 'https://wardha.hetadatain.com/AUTO_DAILY_WARDHA_SOLAR.xlsx';
+    window.location.href = 'https://wardha.hetadatain.com/Solar_Report.xlsx';
   };
 
   return (

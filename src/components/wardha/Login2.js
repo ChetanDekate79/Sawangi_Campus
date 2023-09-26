@@ -5,21 +5,18 @@ import './Login.css';
 import logo from './Login.js';
 import Top_Bar from './too_bar';
 import Sidebar_wardha from './side_bar';
+import Sidebar_wardha_icons from './side_bar_icon';
 import TopBar from './Top';
 import {loginapi2, decryptPassword } from './api';
 
 function Login2() {
+  const [userType, setUserType] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const [apiData, setApiData] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -40,6 +37,7 @@ function Login2() {
 
       if (loginResponse && loginResponse.message === 'Login successful') {
         setIsLoggedIn(true);
+        setUserType(loginResponse.user_type);
       } else {
         setErrorMessage('Invalid email or password');
       }
@@ -49,7 +47,6 @@ function Login2() {
     }
   };
   
-
   useEffect(() => {
     if (isLoggedIn) {
       // Perform successful login logic here
@@ -60,7 +57,7 @@ function Login2() {
   if (isLoggedIn) {
     return (
       <div>
-        <Sidebar_wardha />
+        <Sidebar_wardha_icons userType={userType} />
       </div>
     );
   }
