@@ -3,7 +3,7 @@ import { create as am4coreCreate, useTheme as am4coreUseTheme } from '@amcharts/
 import * as am4charts from '@amcharts/amcharts4/charts';
 import * as am4core from "@amcharts/amcharts4/core";
 import { fetchHosts, fetchMeters, fetchData_csv } from "./api";
-
+import BASE_URL from './api';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
 am4core.useTheme(am4themes_animated);
@@ -12,6 +12,7 @@ const LineChart_csv = () => {
   const [selectedMeter, setSelectedMeter] = useState('');
   const [meters, setMeters] = useState([]);
   const [hosts, setHosts] = useState([]);
+  const [parameters, setParameters] = useState([]);
 
   const [isLoadingHosts, setIsLoadingHosts] = useState(false);
   const [isLoadingMeters, setIsLoadingMeters] = useState(false);
@@ -85,7 +86,23 @@ const LineChart_csv = () => {
   const variable3 = deviceNames[2];
   const variable4 = deviceNames[3];
 
-  // console.log(variable2);
+  const fetchParametersData = async () => {
+    try {
+      setIsLoadingHosts(true);
+      const response = await fetch(`${BASE_URL}/parameters`); // Adjust the API URL if needed
+      const data = await response.json();
+    setParameters(data.parameters);  // Update to setParameters
+    setIsLoadingHosts(false);
+  } catch (error) {
+    console.error("Error fetching parameters:", error);
+    setIsLoadingHosts(false);
+  }
+};
+
+  useEffect(() => {
+    fetchParametersData();  // Invoking the updated function
+  }, []);
+  
 
   const handleHostChange = (event) => {
     const selectedOption = event.target.value;
@@ -269,32 +286,13 @@ const LineChart_csv = () => {
               fontFamily: "Comic Sans MS",
               fontSize: "13px",
             }}
-          >
-            <option value="">Select Parameters</option>
-            <option value={['4', '5', '6', '7']}>W_Total, R-phase, Y-phase, B-phase</option>
-            <option value={['8', '9', '10', '11']}>VAR_Total, R-phase, Y-phase, B-phase</option>
-            <option value={['12', '13', '14', '15']}>PF_Ave, R-phase, Y-phase, B-phase</option>
-            <option value={['16', '17', '18', '19']}>VA_total, R-phase, Y-phase, B-phase</option>
-            <option value={['20', '21', '22', '23']}>VLL_average, Vry-phase, Vyb-phase, Vbr-phase</option>
-            <option value={['24', '25', '26', '27']}>VLN_average, Vr-phase, Vy-phase, Vb-phase</option>
-            <option value={['28', '29', '30', '31']}>Current_Average, R-phase, Y-phase, B-phase</option>
-            <option value="32">Frequency</option>
-            <option value="33">Wh_Received</option>
-            <option value="34">VAh_Received</option>
-            <option value="35">VARh_Ind_Received</option>
-            <option value="36">VARh_Cap_Received</option>
-            <option value="37">Wh_Delivered</option>
-            <option value="38">VAh_Delivered</option>
-            <option value="39">VARh_Ind_Delivered</option>
-            <option value="40">VARh_Cap_Delivered</option>
-            <option value="41">PF average Received</option>
-            <option value="42">Amps average Received</option>
-            <option value="43">PF average delivered</option>
-            <option value="44">Amps average delivered</option>
-            <option value="45">Neutral_current</option>
-            <option value={['46', '47', '48']}>Voltage-R-Harm, Voltage-Y-Harm, Voltage-B-Harm</option>
-            <option value={['49', '50', '51', '52']}>Current-R-Harm, Current-Y-Harm, Current-B-Harm, Level</option>
-          </select>
+          ><option value="">Select Parameters</option>
+          {parameters.map((param, index) => (
+            <option key={index} value={param.value}>
+              {param.label}
+            </option>
+          ))}
+           </select>
         </div>
         <div style={{ alignItems: "center", marginRight: "2px", backgroundColor: "rgb(156 152 255)", padding: "2px", borderRadius: "10px" }}>
           <label htmlFor="select_host" style={{ fontWeight: "bold", display: "block", fontFamily: "Comic Sans MS", color: "#ffffff" }}>
@@ -401,7 +399,7 @@ const LineChart_csv = () => {
           <div className="loading">No data available</div>
         ) : (
           <div id="chartdiv_g" style={{ width: "100%", // Set the chart width to 100% of its container
-          height: "75vh",
+          height: "72vh",
           backgroundColor: "#ffffff",
           borderRadius: "10px", }} />
         ))}

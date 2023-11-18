@@ -12,6 +12,9 @@ import Pump from "./pump";
 import Pump_report from "./pump_report";
 import DataDisplay from './wardhastatus'
 import Report_pump from "./report_pump";
+import Chiller from "./chiller";
+import Admin from './admin';
+import Chiller_Report from "./chiller_report";
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'; // Import the icons for visibility
 import { IoIosArrowDropleft, IoIosArrowDropright } from 'react-icons/io'; // Import icons for visibility
 
@@ -19,7 +22,7 @@ const Sidebar_wardha_icons = (props) => {
   const { userType } = props;
   const [isLoading, setIsLoading] = useState(true);
   // const [activeTab, setActiveTab] = useState("home");
-  const [activeTab, setActiveTab] = useState("graph");
+  const [activeTab, setActiveTab] = useState("home");
   const [showIconNames, setShowIconNames] = useState(true); // State variable to control visibility
 
 
@@ -64,12 +67,18 @@ const Sidebar_wardha_icons = (props) => {
         return <Total_Consumption />;
       case "pump":
         return <Pump/>;
-        case "pump_hourly_report":
+      case "pump_hourly_report":
           return <Report_pump/>;
       case "pump_report":
         return <Pump_report/>;
-        case "meter_status":
+      case "meter_status":
         return <DataDisplay/>;
+      case "chiller_csv":
+        return <Chiller/>;
+      case 'chiller_report':
+        return <Chiller_Report/>;
+        case 'admin':
+        return <Admin/>;
       default:
         return null;
     }
@@ -79,8 +88,14 @@ const Sidebar_wardha_icons = (props) => {
   // Define an array of objects containing icon-related information
   const iconContainers = [
     {
+      tabName: "home",
+      tabTitle: "Home",
+      icon:  <img src={`${process.env.PUBLIC_URL}/icons/home.png`} alt="Hostel Icon" width={24} />,
+      iconName: "Home",
+    },
+    {
       tabName: "graph",
-      tabTitle: "Hourly Graph",
+      tabTitle: "Hey this is the instruction for graph",
       icon:  <img src={`${process.env.PUBLIC_URL}/icons/statistics.png`} alt="Hostel Icon" width={24} />,
       iconName: "Hourly Graph",
     },
@@ -89,6 +104,18 @@ const Sidebar_wardha_icons = (props) => {
       tabTitle: "Individual Parameter",
       icon: <img src={`${process.env.PUBLIC_URL}/icons/line-chart.png`} alt="Hostel Icon" width={24} />,
       iconName: "Parameter Graph",
+    },
+    {
+      tabName: "chiller_csv",
+      tabTitle: "Chiller",
+      icon: <img src={`${process.env.PUBLIC_URL}/icons/chiller.png`} alt="Hostel Icon" width={24} />,
+      iconName: "Chiller",
+    },
+    {
+      tabName: "chiller_report",
+      tabTitle: "Chiller Report",
+      icon: <img src={`${process.env.PUBLIC_URL}/icons/chiller-report.png`} alt="Hostel Icon" width={24} />,
+      iconName: "Chiller Report",
     },
     {
       tabName: "report_wardha",
@@ -132,6 +159,13 @@ const Sidebar_wardha_icons = (props) => {
       icon: <img src={`${process.env.PUBLIC_URL}/icons/electric-meter.png`} alt="Hostel Icon" width={24} />,
       iconName: "Meter Status",
     },
+    userType === "admin" && 
+    {
+      tabName: "admin",
+      tabTitle: "Admin Tools",
+      icon: <img src={`${process.env.PUBLIC_URL}/icons/settings.png`} alt="Hostel Icon" width={24} />,
+      iconName: "Admin Tools",
+    },
     
   ];
 
@@ -160,23 +194,26 @@ const Sidebar_wardha_icons = (props) => {
           {showIconNames ? <IoIosArrowDropleft /> : <IoIosArrowDropright />}
         </div>
 
-         {iconContainers.map((iconContainer, index) => (
-          <div
-            key={index}
-            className={`icon-container ${
-              activeTab === iconContainer.tabName ? "active" : ""
-            }`}
-            onClick={() => setActiveTab(iconContainer.tabName)}
-            title={iconContainer.tabTitle}
-          >
-            <>
-              {iconContainer.icon}
-              {showIconNames && (
-                <span className="icon-name">{iconContainer.iconName}</span>
-              )}
-            </>
-          </div>
-        ))}
+        {iconContainers.map((iconContainer, index) => (
+  <div
+    key={index}
+    className={`icon-container ${
+      activeTab === iconContainer.tabName ? "active" : ""
+    }`}
+    onClick={() => setActiveTab(iconContainer.tabName)}
+    title={iconContainer.tabTitle}
+    data-tooltip={iconContainer.tabTitle} 
+  >
+    <>
+      {iconContainer.icon}
+      {showIconNames && (
+        <span className="icon-name">{iconContainer.iconName}</span>
+      )}
+    </>
+  </div>
+))}
+
+
         {/* Common toggle icon */}
         <div
           className={`icon-container ${

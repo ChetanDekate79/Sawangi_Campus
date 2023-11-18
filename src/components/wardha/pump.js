@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './pump.css';
 import { pump } from "./api";
 import { FaLightbulb, FaChargingStation, FaBolt } from 'react-icons/fa';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Pump = () => {
   const [data, setData] = useState([]);
@@ -42,7 +43,7 @@ const Pump = () => {
           data.map((item, index) => (
             <div key={index} className="pump-box">
               <div className={`circle ${getColor(parseFloat(item[4]))}`} >
-                <FaBolt className="status" />
+              <img class="img-fluid p-0.2 m-1" src={`${process.env.PUBLIC_URL}/icons/thunder.png`} alt="Hostel Icon" width={24} />
               </div>
               <div className="pump-content">
                 <h3>{item.Device_Name}</h3>

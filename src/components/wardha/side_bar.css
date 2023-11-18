@@ -46,7 +46,9 @@
 }
 
 .icon-container {
-  margin-top: 2vh;
+  position: relative; /* Add position: relative to create a positioning context for the tooltip */
+
+  margin-top: 0.5vh;
   display: flex;
   align-items: center;
   padding: 8px;
@@ -54,12 +56,31 @@
   cursor: pointer;
 }
 
+.icon-container::before {
+  content: attr(data-tooltip); /* Set the content of the tooltip to the value of the data-tooltip attribute */
+  position: absolute;
+  bottom: 50%; /* Align the tooltip vertically centered with the icon */
+  left: 110%; /* Position the tooltip to the right of the icon */
+  background-color: #38a7d7;
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  opacity: 0; /* Hide the tooltip by default */
+  transition: opacity 0.3s ease; /* Add a transition effect for smoother visibility */
+ /* Add a transition effect for smoother visibility */
+}
+
+.icon-container:hover::before {
+  opacity: 1; /* Show the tooltip on hover */
+}
+
 .icon-container:hover {
   background-color: #ffffff;
 }
 
 .icons-container {
-  margin-top: 1vh;
+  margin-top: 0.5vh;
   height: 80vh;
   background-color: transparent;
   padding: 1vw;

@@ -5,7 +5,6 @@ import Report_wardha from './components/wardha/report_wardha'
 import Sidebar_wardha from './components/wardha/side_bar'
 import Top_Bar from './components/wardha/too_bar'
 import './components/wardha/report_wardha.css'
-import Login from './components/wardha/Login';
 import TopBar from './components/wardha/Top';
 import './App.css'
 import Pump from './components/wardha/pump';
@@ -17,6 +16,10 @@ import Meterstatus from './components/wardha/meterstatus';
 import EventTable from './components/wardha/wardhastatus';
 import DataDisplay from './components/wardha/wardhastatus';
 import Sidebar_wardha_icons from './components/wardha/side_bar_icon'
+import Chiller from './components/wardha/chiller';
+import Chiller_Report from './components/wardha/chiller_report';
+import Home from './components/wardha/home';
+import Admin from './components/wardha/admin';
 function App() { 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,10 +38,13 @@ function App() {
         </div>
       ) : (
         <>
-          
-            {/* <Sidebar_wardha_icons/> */}
+            <Sidebar_wardha_icons/>
 
-          <Login2/>
+            
+          {/* <Login2/> */}
+
+          {/* <Admin/> */}
+
          
         </>
       )}

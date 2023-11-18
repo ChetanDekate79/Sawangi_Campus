@@ -5,10 +5,7 @@ import bcrypt from 'bcryptjs';
 
 const BASE_URL = "https://wardha.hetadatain.com/api"; // Replace with your API base URL
 
-
 export default BASE_URL;
-
-
 
 export const fetchHosts = async () => {
   try {
@@ -60,8 +57,6 @@ export const home = async () => {
   }
 };
 
-
-
 export const pump = async (date) => {
   try {
     const response = await fetch(
@@ -92,6 +87,32 @@ export const fetchData_csv = async (hostId, date, deviceId ) => {
 
     const response = await fetch(
       `${BASE_URL}/csv-data/${hostId}/${formattedDate}/${deviceId}`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch data");
+  }
+};
+
+export const Generate_Hourly_data_all = async (hostId, date) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/generate_hourly_data_all/${hostId}/${date}`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch data");
+  }
+};
+
+export const chiller_csv = async ( date ) => {
+  try {
+    const formattedDate = date.split("-").reverse().join("-");
+
+    const response = await fetch(
+      `${BASE_URL}/chiller-data/CHILLER-AVBRH/${formattedDate}`
     );
     const data = await response.json();
     return data;
@@ -144,7 +165,7 @@ export const loginapi = async () => {
     console.error('API request failed:', error);
     throw error;
   }
-};
+}; 
 
 export const loginapi2 = async (email, password) => {
   try {

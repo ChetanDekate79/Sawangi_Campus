@@ -16,7 +16,7 @@
 
 .pump-box {
   position: relative;
-  width: 18vw;
+  width: 19vw;
   height: 15vh;
   display: flex;
   flex-direction: column;
@@ -103,7 +103,7 @@ height: 3vh;
 }
 
 .bottom-content2 {
-  margin-top: -4vh;
+  margin-top: -3vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
