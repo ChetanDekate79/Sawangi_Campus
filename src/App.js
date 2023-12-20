@@ -20,6 +20,7 @@ import Chiller from './components/wardha/chiller';
 import Chiller_Report from './components/wardha/chiller_report';
 import Home from './components/wardha/home';
 import Admin from './components/wardha/admin';
+import Weather from './components/wardha/weather';
 function App() { 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -38,10 +39,10 @@ function App() {
         </div>
       ) : (
         <>
-            <Sidebar_wardha_icons/>
+            {/* <Sidebar_wardha_icons/> */}
 
             
-          {/* <Login2/> */}
+          <Login2/>
 
           {/* <Admin/> */}
 

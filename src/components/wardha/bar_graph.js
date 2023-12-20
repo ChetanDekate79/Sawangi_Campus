@@ -355,7 +355,7 @@ const Bar_graph = () => {
             id="chartdiv"
             style={{
               width: "100%", // Set the chart width to 100% of its container
-              height: "75vh",
+              height: "73vh",
               backgroundColor: "#ffffff",
               borderRadius: "10px",
             }}

@@ -10,9 +10,14 @@ const Home = () => {
     async function fetchImages() {
       try {
         const imageFilenames = [];
-        for (let i = 1; i <= 3; i++) {
+        for (let i = 1; i <= 10; i++) {
           // Assuming you have image files named "image1.jpg", "image2.jpg", and "image3.jpg"
-          imageFilenames.push(`image${i}.png`);
+          const imageName = `image${i}.png`;
+          // Check if the image file exists before adding it to the array
+          const imageExists = await checkImageExists(imageName);
+          if (imageExists) {
+            imageFilenames.push(imageName);
+          }
         }
         setImages(imageFilenames);
       } catch (error) {
@@ -26,10 +31,10 @@ const Home = () => {
 
   useEffect(() => {
     if (images.length > 1) {
-      // Function to increment the image index every 2 seconds (adjust the interval as needed)
+      // Function to increment the image index every 20 seconds (adjust the interval as needed)
       const interval = setInterval(() => {
         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-      }, 20000); // 2 seconds in milliseconds
+      }, 20000); // 20 seconds in milliseconds
 
       return () => {
         clearInterval(interval); // Clear the interval when the component unmounts
@@ -37,12 +42,15 @@ const Home = () => {
     }
   }, [images]);
 
-  const moveToPreviousImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-  };
-
-  const moveToNextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+  // Function to check if an image file exists
+  const checkImageExists = async (imageName) => {
+    try {
+      const response = await fetch(`${process.env.PUBLIC_URL}/images/${imageName}`);
+      return response.ok;
+    } catch (error) {
+      console.error("Error checking image existence:", error);
+      return false;
+    }
   };
 
   return (
@@ -54,11 +62,13 @@ const Home = () => {
             className="image-container"
             title="Page"
             alt="Slideshow Image"
+            onError={() => {
+              // Handle the case when the image fails to load
+              console.error(`Error loading image: ${images[currentImageIndex]}`);
+              // Reset the slideshow to start from the first image
+              setCurrentImageIndex(0);
+            }}
           />
-          {/* <div className="image-navigation">
-            <button onClick={moveToPreviousImage}>Previous</button>
-            <button onClick={moveToNextImage}>Next</button>
-          </div> */}
         </div>
       )}
     </div>

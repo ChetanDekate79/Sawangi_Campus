@@ -41,25 +41,71 @@ const Chiller_Report = () => {
     });
   };
 
+  // const handleDownloadCSV = () => {
+  //   // Create a CSV string from the data
+  //   const csvData = "Hour,KWH,Flow (m3/h),ΔT,KW/RT\n" + data.map(item => `${item.hour},${item.kwh_hourly_total},${item.flow},${item.max_delta},${item.kwrt}`).join("\n");
+
+  //   // Create a Blob with the CSV data
+  //   const blob = new Blob([csvData], { type: 'text/csv' });
+  //   const url = URL.createObjectURL(blob);
+
+  //   // Create a temporary anchor element and trigger the download
+  //   const a = document.createElement('a');
+  //   a.style.display = 'none';
+  //   a.href = url;
+  //   a.download = `chiller_report-${formattedDate}.csv`;
+  //   document.body.appendChild(a);
+  //   a.click();
+  //   document.body.removeChild(a);
+  //   URL.revokeObjectURL(url);
+  // };
+
   const handleDownloadCSV = () => {
-    // Create a CSV string from the data
-    const csvData = "Hour,KWH,Flow (m3/h),ΔT,KW/RT\n" + data.map(item => `${item.hour},${item.kwh_hourly_total},${item.flow},${item.max_delta},${item.kwrt}`).join("\n");
-
+    // Find the table element in the DOM
+    const tableElement = document.getElementById('print_table');
+  
+    // Check if the table element exists
+    if (!tableElement) {
+      console.error('Table element not found');
+      return;
+    }
+  
+    // Extract headers from the table
+    const headers = Array.from(tableElement.querySelectorAll('thead th')).map(th => th.innerText);
+  
+    // Extract data rows from the table body
+    const bodyRows = Array.from(tableElement.querySelectorAll('tbody tr')).map(row => {
+      const rowData = Array.from(row.querySelectorAll('td')).map(td => td.innerText);
+      return rowData.join(',');
+    });
+  
+    // Extract data rows from the table footer
+    const footerRows = Array.from(tableElement.querySelectorAll('tfoot tr')).map(row => {
+      const rowData = Array.from(row.querySelectorAll('td')).map(td => td.innerText);
+      return rowData.join(',');
+    });
+  
+    // Combine body and footer rows
+    const allRows = [...bodyRows, ...footerRows];
+  
+    // Create CSV content
+    const csvContent = [headers.join(','), ...allRows].join('\n');
+  
     // Create a Blob with the CSV data
-    const blob = new Blob([csvData], { type: 'text/csv' });
+    const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
-
+  
     // Create a temporary anchor element and trigger the download
     const a = document.createElement('a');
     a.style.display = 'none';
     a.href = url;
-    a.download = `chiller_report-${formattedDate}.csv`;
+    a.download = `Chiller_report-${formattedDate}.csv`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
-
+  
 
 
   const handleDateChange = (event) => {
@@ -160,27 +206,42 @@ const Chiller_Report = () => {
         <h2 className="text-center" >{SelectedDevice2Name} Chiller Report for Date {selectedDate}</h2>
         {/* <p className="text-center">The .table-bordered class adds borders on all sides of the table and the cells:</p> */}
 
-        <table  className="table table-bordered">
+        <table id="print_table" className="table table-bordered">
           <thead class="table-success">
             <tr>
               <th>Hour</th>
               <th>KWH</th>
               <th>Flow (m3/h)</th>
-              <th>ΔT</th>
+              <th>Delta(Δ) T</th>
+              <th>RT</th>
               <th>KW/RT</th>
+              <th>Loss KWH = (0.6 KW / RT)</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
+          {Object.values(data).map((item) => (
               <tr key={item.hour}>
                 <td>{item.hour}</td>
                 <td>{item.kwh_hourly_total}</td>
                 <td>{item.flow}</td>
                 <td>{item.max_delta}</td>
+                <td>{item.rt}</td>
                 <td>{item.kwrt}</td>
+                <td>{item.loss}</td>
               </tr>
             ))}
           </tbody>
+          <tfoot className="table-secondary" style={{ fontWeight: 'bold' }}>
+          <tr>
+            <td>Total</td>
+            <td>{data.sum_kwh}</td>
+            <td>{data.sum_flow}</td>
+            <td></td>
+            <td>{data.sum_rt}</td>
+            <td>{data.sum_kwrt}</td>
+            <td>{data.sum_loss}</td>
+          </tr>
+  </tfoot>
         </table>
       </div>
     </div>

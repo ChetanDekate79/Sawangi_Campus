@@ -17,15 +17,42 @@ import Admin from './admin';
 import Chiller_Report from "./chiller_report";
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'; // Import the icons for visibility
 import { IoIosArrowDropleft, IoIosArrowDropright } from 'react-icons/io'; // Import icons for visibility
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import BASE_URL from "./api";
 
 const Sidebar_wardha_icons = (props) => {
   const { userType } = props;
   const [isLoading, setIsLoading] = useState(true);
+  const [weatherData, setWeatherData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+
+
   // const [activeTab, setActiveTab] = useState("home");
   const [activeTab, setActiveTab] = useState("home");
   const [showIconNames, setShowIconNames] = useState(true); // State variable to control visibility
 
 
+  useEffect(() => {
+    const getWeatherData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `${BASE_URL}/weather/current`
+        );
+        setWeatherData(response.data);
+      } catch (error) {
+        console.error('Error fetching weather data:', error);
+        setError(error.message || 'An error occurred while fetching weather data.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getWeatherData();
+  }, []); // The 
 
   const handleLogout = () => {
     // Perform any logout logic if necessary
@@ -89,73 +116,74 @@ const Sidebar_wardha_icons = (props) => {
   const iconContainers = [
     {
       tabName: "home",
-      tabTitle: "Home",
+      tabTitle: "Show Pie chart Transformer, Hostel, Solar for Yesterday",
       icon:  <img src={`${process.env.PUBLIC_URL}/icons/home.png`} alt="Hostel Icon" width={24} />,
       iconName: "Home",
     },
     {
       tabName: "graph",
-      tabTitle: "Hey this is the instruction for graph",
+      tabTitle: "Show Each Hostel Breakup Input,Rooms,Common Area for any Day",
       icon:  <img src={`${process.env.PUBLIC_URL}/icons/statistics.png`} alt="Hostel Icon" width={24} />,
       iconName: "Hourly Graph",
     },
     {
+      tabName: "report_wardha",
+      tabTitle: "Hourly KWH for any feeder or any Day",
+      icon: <img src={`${process.env.PUBLIC_URL}/icons/report.png`} alt="Hostel Icon" width={24} />,
+      iconName: "Hourly Report",
+    },
+    {
       tabName: "graph_csv",
-      tabTitle: "Individual Parameter",
+      tabTitle: "Show forty  Parameter of each Room on any Day",
       icon: <img src={`${process.env.PUBLIC_URL}/icons/line-chart.png`} alt="Hostel Icon" width={24} />,
       iconName: "Parameter Graph",
     },
     {
       tabName: "chiller_csv",
-      tabTitle: "Chiller",
+      tabTitle: "Show Nineteen Parameter any Day",
       icon: <img src={`${process.env.PUBLIC_URL}/icons/chiller.png`} alt="Hostel Icon" width={24} />,
       iconName: "Chiller",
     },
     {
       tabName: "chiller_report",
-      tabTitle: "Chiller Report",
+      tabTitle: "Show Hourly KWH, KWH/RT for any Day",
       icon: <img src={`${process.env.PUBLIC_URL}/icons/chiller-report.png`} alt="Hostel Icon" width={24} />,
       iconName: "Chiller Report",
     },
-    {
-      tabName: "report_wardha",
-      tabTitle: "Hourly Report",
-      icon: <img src={`${process.env.PUBLIC_URL}/icons/report.png`} alt="Hostel Icon" width={24} />,
-      iconName: "Hourly Report",
-    },
+    
     {
       tabName: "solar",
-      tabTitle: "Solar Report",
+      tabTitle: "Download Solar Generation and loss",
       icon: <img src={`${process.env.PUBLIC_URL}/icons/solar-panel.png`} alt="Hostel Icon" width={24} />,
       iconName: "Solar Report",
     },
     {
       tabName: "report",
-      tabTitle: "Energy Report",
+      tabTitle: "Download Total,Transformer, Hostel Consumption Report",
       icon:<img src={`${process.env.PUBLIC_URL}/icons/clipboard.png`} alt="Hostel Icon" width={24} />,
       iconName: "Energy Report",
     },
     {
       tabName: "pump",
-      tabTitle: "Pump Status",
+      tabTitle: "Show Real Time Working of pump",
       icon: <img src={`${process.env.PUBLIC_URL}/icons/pump.png`} alt="Hostel Icon" width={24} />,
       iconName: "Pump Status",
     },
     {
       tabName: "pump_hourly_report",
-      tabTitle: "Pump Hourly Report",
+      tabTitle: "Show any Pump Hourly Report for any Day",
       icon: <img src={`${process.env.PUBLIC_URL}/icons/report_pump.png`} alt="Hostel Icon" width={24} />,
       iconName: "Pump Hourly Report",
     },
     {
       tabName: "pump_report",
-      tabTitle: "Pump Report",
+      tabTitle: "Download pump Consumption and flow pressure Report",
       icon: <img src={`${process.env.PUBLIC_URL}/icons/report_pump_excel.png`} alt="Hostel Icon" width={24} />,
       iconName: "Pump Report",
     },
     {
       tabName: "meter_status",
-      tabTitle: "Meter Status",
+      tabTitle: "See any Feeder Meter Working  Status",
       icon: <img src={`${process.env.PUBLIC_URL}/icons/electric-meter.png`} alt="Hostel Icon" width={24} />,
       iconName: "Meter Status",
     },
@@ -175,7 +203,7 @@ const Sidebar_wardha_icons = (props) => {
       <div className="icons-container">
       {showIconNames && (
           <div className="box">
-            <img src="log.png" alt="Left Image" className="logo-left" />
+            <img src="log.png" alt="Left Image"  width='150' height='30'/>
           </div>
         )}
     
@@ -201,7 +229,7 @@ const Sidebar_wardha_icons = (props) => {
       activeTab === iconContainer.tabName ? "active" : ""
     }`}
     onClick={() => setActiveTab(iconContainer.tabName)}
-    title={iconContainer.tabTitle}
+    // title={iconContainer.tabTitle}
     data-tooltip={iconContainer.tabTitle} 
   >
     <>
@@ -221,6 +249,7 @@ const Sidebar_wardha_icons = (props) => {
           }`}
           onClick={handleLogout}
           title="Logout"
+          data-tooltip ="Logout"
         >
           <img src={`${process.env.PUBLIC_URL}/icons/logout.png`} alt="Hostel Icon" width={24} />
           {showIconNames && <span className="icon-name">Logout</span>}
@@ -230,7 +259,7 @@ const Sidebar_wardha_icons = (props) => {
       <div className="content">
         <div className="top-bar">
         
-         <span className="top-title" style={{ fontFamily: 'Comic Sans MS' }}>Energy Monitoring System for <b style={{ color: "#dc2e2e"}}>Sawangi Campus</b></span>
+         <h4 >Energy Monitoring System for <b style={{ color: "#dc2e2e"}}>Sawangi Campus</b></h4>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <div
             style={{
@@ -239,13 +268,26 @@ const Sidebar_wardha_icons = (props) => {
             }}
           >
           
-            <span style={{ fontSize: '14px', color: 'black', cursor: 'pointer' }}>
-              🗓️ {getCurrentDateTime()}
-            </span>
+            
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+
+{weatherData && (
+  <div className="weather">
+  <p>
+    🗓️ {getCurrentDateTime()}
+  </p>
+  <p >
+    <img src={weatherData.current.condition.icon} alt="Weather Icon" width="30" height="30"></img>
+    Temp: <b>{weatherData.current.temp_c}°C</b>  <b>{weatherData.current.condition.text}</b>, Hum: <b>{weatherData.current.humidity}</b>, UV: <b>{weatherData.current.uv}</b>
+  </p>
+</div>
+
+)}
+            
           </div>
         </div>
           
-          <img src="JNMC_LOGO.png" alt="Right Image" className="logo-right"/>
+          <img src="JNMC_LOGO.png" alt="Right Image" width="50" height="50"/>
         </div>
         {isLoading ? (
           <div className="loading-bar">

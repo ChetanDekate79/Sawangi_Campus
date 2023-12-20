@@ -378,7 +378,7 @@ const Report_pump = () => {
           {reportUrl && (
         <>
           <iframe ref={iframeRef} src={reportUrl} style={{ width: "100%", // Set the chart width to 100% of its container
-              height: "75vh",
+              height: "72vh",
               backgroundColor: "#ffffff",
               borderRadius: "10px",}} title="Report" />
 
