@@ -92,89 +92,104 @@ const Admin = () => {
   const openLink3 = () => {
     window.open('https://lookerstudio.google.com/reporting/e471c4fc-1441-4e07-91eb-7a51dfbd0547', '_blank');
   };
-  return (
-    <div  style={{fontFamily: "Comic Sans MS", }}>
-    <div className="container-fluid  d-flex justify-content-around rounded" >
-      <div  className="container my-5  border border-dark p-3  rounded" style={{backgroundColor: '#d1fec5'}}>
-        <h4  >Update Hourly Data from CSV Files</h4>
-      <div className="container-fluid d-flex">
-        <div style={{ display: "flex", alignItems: "center", marginRight: "10px", backgroundColor: "rgb(156 152 255)", padding: "5px", borderRadius: "10px" }}>
-          <label htmlFor="select_host" style={{ marginRight: '10px', fontWeight: 'bold', fontFamily: 'Comic Sans MS', color: "#ffffff" }}>
-            Select Host:
-          </label>
-          <select
-            id="select_host"
-            value={selectedHost}
-            onChange={handleHostChange}
-            style={{
-              padding: '5px',
-              borderRadius: '5px',
-              border: '1px solid #ccc',
-              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-              outline: 'none',
-              fontFamily: 'Comic Sans MS',
-              fontSize: '14px',
-              minWidth: '200px',
-            }}
-          >
-            <option value="">Select Host</option>
-            {isLoadingHosts ? (
-              <option value="" disabled>Loading hosts...</option>
-            ) : (
-              hosts.map(host => (
-                <option key={host.client_id} value={host.client_id}>
-                  {host.client_name}
-                </option>
-              ))
-            )}
-          </select>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", marginRight: "10px", backgroundColor: "rgb(200 96 224 / 79%)", padding: "5px", borderRadius: "10px" }}>
-          <label htmlFor="datePicker" style={{ marginRight: "10px", fontWeight: "bold", color: "#003c96" }}>
-            <span style={{ fontFamily: "Comic Sans MS", color: "#ffffff" }}>Select Date:</span>
-          </label>
-          <input
-            type="date"
-            id="datePicker"
-            value={selectedDate}
-            onChange={handleDateChange}
-            style={{
-              padding: "5px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-              outline: "none",
-              fontFamily: "Comic Sans MS",
-              fontSize: "14px",
-            }}
-          />
-        </div>
-      </div>
-      <div className="container d-flex justify-content-center align-self-center mt-2" >
-      {isLoadingData && <LoadingSpinner />}
-      </div>
-      </div>
-      <div className="  p-4 my-10 d-inline-block border border-dark rounded" style={{backgroundColor: '#d1fec5'}} >
-  <h4 className="text-center"  >Login Data</h4>
-  <button className='btn btn-primary' onClick={handleClick}><h6>Download</h6></button>
-</div>
 
-    </div>
-    <div className="container my-5 border border-dark p-3 rounded" style={{backgroundColor: '#d1fec5'}}>
-      <h3 >Data Studio Dashboard </h3>
-    <div className="container d-flex justify-content-between  bg-white flex-nowrap  border border-dark p-3 rounded">
-      
-    <button className="btn btn-primary mx-4 " onClick={openLink1}>
-        Transformer
-      </button>
-      <button className="btn btn-success mx-4" onClick={openLink2}>
-        Hostel
-      </button>
-      <button className="btn btn-warning mx-4" onClick={openLink3}>
-        Solar
-      </button>
-    </div>
-    </div>
+  const openLink4 = () => {
+    window.open('https://lookerstudio.google.com/reporting/0bcc6882-4c17-4b53-9628-c4c635c720de', '_blank');
+  };
+
+  const openLink5 = () => {
+    window.open('https://lookerstudio.google.com/reporting/902bed9e-4805-4c79-95f5-93dec50400f5', '_blank');
+  };
+  return (
+    <div style={{ fontFamily: "Comic Sans MS", }}>
+      <div className="container-fluid  d-flex justify-content-around rounded" >
+        <div className="container my-5  border border-dark p-3  rounded" style={{ backgroundColor: '#d1fec5' }}>
+          <h4  >Update Hourly Data from CSV Files</h4>
+          <div className="container-fluid d-flex">
+            <div style={{ display: "flex", alignItems: "center", marginRight: "10px", backgroundColor: "rgb(156 152 255)", padding: "5px", borderRadius: "10px" }}>
+              <label htmlFor="select_host" style={{ marginRight: '10px', fontWeight: 'bold', fontFamily: 'Comic Sans MS', color: "#ffffff" }}>
+                Select Host:
+              </label>
+              <select
+                id="select_host"
+                value={selectedHost}
+                onChange={handleHostChange}
+                style={{
+                  padding: '5px',
+                  borderRadius: '5px',
+                  border: '1px solid #ccc',
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  outline: 'none',
+                  fontFamily: 'Comic Sans MS',
+                  fontSize: '14px',
+                  minWidth: '200px',
+                }}
+              >
+                <option value="">Select Host</option>
+                {isLoadingHosts ? (
+                  <option value="" disabled>Loading hosts...</option>
+                ) : (
+                  hosts.map(host => (
+                    <option key={host.client_id} value={host.client_id}>
+                      {host.client_name}
+                    </option>
+                  ))
+                )}
+              </select>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", marginRight: "10px", backgroundColor: "rgb(200 96 224 / 79%)", padding: "5px", borderRadius: "10px" }}>
+              <label htmlFor="datePicker" style={{ marginRight: "10px", fontWeight: "bold", color: "#003c96" }}>
+                <span style={{ fontFamily: "Comic Sans MS", color: "#ffffff" }}>Select Date:</span>
+              </label>
+              <input
+                type="date"
+                id="datePicker"
+                value={selectedDate}
+                onChange={handleDateChange}
+                style={{
+                  padding: "5px",
+                  borderRadius: "5px",
+                  border: "1px solid #ccc",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  outline: "none",
+                  fontFamily: "Comic Sans MS",
+                  fontSize: "14px",
+                }}
+              />
+            </div>
+          </div>
+          <div className="container d-flex justify-content-center align-self-center mt-2" >
+            {isLoadingData && <LoadingSpinner />}
+          </div>
+        </div>
+        <div className="  p-4 my-10 d-inline-block border border-dark rounded" style={{ backgroundColor: '#d1fec5' }} >
+          <h4 className="text-center"  >Login Data</h4>
+          <button className='btn btn-primary' onClick={handleClick}><h6>Download</h6></button>
+        </div>
+
+      </div>
+      <div className="container my-5 border border-dark p-3 rounded" style={{ backgroundColor: '#d1fec5' }}>
+        <h3 >Data Studio Dashboard </h3>
+        <div className="container d-flex justify-content-between  bg-white flex-nowrap  border border-dark p-3 rounded">
+
+          <button className="btn btn-primary mx-4 " onClick={openLink1}>
+            Transformer
+          </button>
+          <button className="btn btn-success mx-4" onClick={openLink2}>
+            Hostel
+          </button>
+          <button className="btn btn-warning mx-4" onClick={openLink3}>
+            Solar
+          </button>
+          <button className="btn btn-secondary mx-4" onClick={openLink4}>
+            Chiller
+          </button>
+
+          <button className="btn btn-info mx-4" onClick={openLink5}>
+            Pump
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

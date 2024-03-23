@@ -1,19 +1,31 @@
 import React, { useState, useEffect } from "react";
-import "./home.css"; // Import the CSS file for the Home component
+import "./home.css";
+import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
+import SkipNextIcon from "@mui/icons-material/SkipNext";
+import { Button } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const checkImageExists = async (imageName) => {
+  try {
+    const response = await fetch(`${process.env.PUBLIC_URL}/images/${imageName}`);
+    return response.ok;
+  } catch (error) {
+    console.error("Error checking image existence:", error);
+    return false;
+  }
+};
 
 const Home = () => {
-  const [images, setImages] = useState([]); // State to store the image filenames
+  const [images, setImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [autoPlay, setAutoPlay] = useState(true);
 
   useEffect(() => {
-    // Function to fetch the list of image filenames when the component mounts
     async function fetchImages() {
       try {
         const imageFilenames = [];
         for (let i = 1; i <= 10; i++) {
-          // Assuming you have image files named "image1.jpg", "image2.jpg", and "image3.jpg"
           const imageName = `image${i}.png`;
-          // Check if the image file exists before adding it to the array
           const imageExists = await checkImageExists(imageName);
           if (imageExists) {
             imageFilenames.push(imageName);
@@ -25,52 +37,62 @@ const Home = () => {
       }
     }
 
-    // Fetch the list of images when the component mounts
     fetchImages();
   }, []);
 
   useEffect(() => {
-    if (images.length > 1) {
-      // Function to increment the image index every 20 seconds (adjust the interval as needed)
+    if (autoPlay && images.length > 1) {
       const interval = setInterval(() => {
         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-      }, 20000); // 20 seconds in milliseconds
+      }, 20000);
 
       return () => {
-        clearInterval(interval); // Clear the interval when the component unmounts
+        clearInterval(interval);
       };
     }
-  }, [images]);
+  }, [autoPlay, images]);
 
-  // Function to check if an image file exists
-  const checkImageExists = async (imageName) => {
-    try {
-      const response = await fetch(`${process.env.PUBLIC_URL}/images/${imageName}`);
-      return response.ok;
-    } catch (error) {
-      console.error("Error checking image existence:", error);
-      return false;
-    }
+  const handleImageChange = (index) => {
+    setCurrentImageIndex(index);
+    setAutoPlay(false); // Pause auto play when the user manually changes the image
+  };
+
+  const getImageUrlWithCacheBusting = (imageName) => {
+    const cacheBuster = new Date().getTime();
+    return `${process.env.PUBLIC_URL}/images/${imageName}?v=${cacheBuster}`;
   };
 
   return (
-    <div className="home-container">
+    <div >
       {images.length > 0 && (
-        <div className="image-wrapper">
+        <div className="image-wrapper" style={{ borderRadius: "5px", boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)" }}>
           <img
-            src={`${process.env.PUBLIC_URL}/images/${images[currentImageIndex]}`}
-            className="image-container"
+            component="img"
+            src={getImageUrlWithCacheBusting(images[currentImageIndex])}
             title="Page"
             alt="Slideshow Image"
+            style={{
+              height: "80vh", width: "100%",
+              borderRadius: "10px", // Set your preferred border radius
+            }} // Set your preferred height and width
             onError={() => {
-              // Handle the case when the image fails to load
               console.error(`Error loading image: ${images[currentImageIndex]}`);
-              // Reset the slideshow to start from the first image
               setCurrentImageIndex(0);
             }}
           />
+          <div style={{ display: "flex" }} >
+            <button class="btn  btn-sm btn-outline-secondary" onClick={() => handleImageChange((currentImageIndex - 1 + images.length) % images.length)}>
+              <SkipPreviousIcon />
+            </button>
+            <button class="btn  btn-sm btn-outline-secondary" onClick={() => handleImageChange((currentImageIndex + 1) % images.length)}>
+              <SkipNextIcon />
+            </button>
+          </div>
+
         </div>
+
       )}
+
     </div>
   );
 };

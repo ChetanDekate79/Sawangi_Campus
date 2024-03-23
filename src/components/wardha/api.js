@@ -81,7 +81,7 @@ export const fetchData_bar = async (hostId, deviceId, date) => {
   }
 };
 
-export const fetchData_csv = async (hostId, date, deviceId ) => {
+export const fetchData_csv = async (hostId, date, deviceId) => {
   try {
     const formattedDate = date.split("-").reverse().join("-");
 
@@ -107,7 +107,7 @@ export const Generate_Hourly_data_all = async (hostId, date) => {
   }
 };
 
-export const chiller_csv = async ( date ) => {
+export const chiller_csv = async (date) => {
   try {
     const formattedDate = date.split("-").reverse().join("-");
 
@@ -165,7 +165,7 @@ export const loginapi = async () => {
     console.error('API request failed:', error);
     throw error;
   }
-}; 
+};
 
 export const loginapi2 = async (email, password) => {
   try {

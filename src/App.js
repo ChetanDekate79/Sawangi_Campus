@@ -40,8 +40,6 @@ function App() {
       ) : (
         <>
             {/* <Sidebar_wardha_icons/> */}
-
-            
           <Login2/>
 
           {/* <Admin/> */}

@@ -36,8 +36,8 @@
   margin-top: 2vh;
   margin-right: 2vh;
   width: calc(100vw - 5vw); /* Adjust the percentage as needed */
-
   height: 96vh;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
 }
 
 
@@ -120,7 +120,7 @@
   align-items: center;
   background-color: transparent;
   padding: 10px;
-  margin-right: 1vw;
+  margin-left: 20vw;
 }
 
 /* .logo-right {
